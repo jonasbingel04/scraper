@@ -1,0 +1,17 @@
+# Virtuelle Umgebung (der wichtigste Eintrag!)
+.venv/
+venv/
+env/
+
+# Python Cache (verhindert unötige Systemdateien in Git)
+__pycache__/
+*.pyc
+
+# Sensible Daten (hier kommen deine Passwörter/Secrets rein)
+.env
+
+# VS Code Einstellungen (optional)
+.vscode/
+
+# Playwright Browser-Downloads (falls du sie lokal im Projekt hast)
+pw-browsers/
