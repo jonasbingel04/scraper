@@ -12,6 +12,12 @@ def getOTP():
     if key is None:
         return "Fehler"
     totp = pyotp.TOTP(key)
+
+    remaining = totp.interval - (time.time() % totp.interval)
+    if remaining < 5:
+        print(f"OTP fas abgelaufen {remaining:.1}s")
+        time.sleep(remaining + 2)
+        
     return totp.now()
 
 print(getOTP())
