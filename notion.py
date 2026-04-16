@@ -11,7 +11,7 @@ NOTION_VERSION = os.getenv("notionVersion")
 
 def getDataBaseStructure(headers):
     response = requests.post(
-        f"https://api.notion.com/v1/data_sources/{getDataSourceID(headers)}/query", headers=headers
+        f"https://api.notion.com/v1/data_sources/{'1aed2df0-67f4-4e84-a657-f0df45f3387f'}/query", headers=headers
     ).json()
 
     first_page = response["results"][0]
@@ -25,7 +25,7 @@ def getDataSourceID(headers):
 
 def getOldTasks(headers):
     oldTasks = []
-    data_source_id = getDataSourceID(headers)
+    data_source_id = "1aed2df0-67f4-4e84-a657-f0df45f3387f"
     response = requests.post(
         f"https://api.notion.com/v1/data_sources/{data_source_id}/query", headers=headers
     )
