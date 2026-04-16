@@ -19,5 +19,3 @@ def getOTP():
         time.sleep(remaining + 2)
         
     return totp.now()
-
-print(getOTP())

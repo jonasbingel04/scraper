@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 def extractTasks(page, label):
     print(f"[{label}] Suche nach Aufgaben")
@@ -17,14 +18,33 @@ def extractTasks(page, label):
             modul = modulMatch.group(1) if modulMatch else "Kein Modul gefunden"
 
             deadlineMatch = re.search(r"ist (.*) fällig", aria if aria else "")
-            deadlineDate = deadlineMatch.group(1) if deadlineMatch else "Kein Datum gefunden"
+            if deadlineMatch:
+                deadlineStr = deadlineMatch.group(1)
+
+                monate = {
+                    "Januar": "January", "Februar": "February", "März": "March", "April": "April", 
+                    "Mai": "May", "Juni": "June", "Juli": "July", "August": "August", 
+                    "September": "September", "Oktober": "October", "November": "November", "Dezember": "December"
+                }
+
+                for de, en in monate.items():
+                    if de in deadlineStr:
+                        deadlineStr = deadlineStr.replace(de,en)
+                        break
+                
+                dateObj = datetime.strptime(deadlineStr, "%d. %B %Y, %H:%M")
+                isoDate = dateObj.isoformat()
+            else:
+                isoDate = "Kein Datum gefunden"
+
 
             results.append({
                 "uni": label,
                 "title": title,
-                "deadline": deadlineDate,
+                "deadline": isoDate,
                 "modul": modul,
                 "fullInfo": aria,
+                
                 "link": link
             })
         

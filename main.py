@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import otp
 import scraper
 import time
+import notion
 
 load_dotenv()
 username = os.getenv("tuUsername")
@@ -28,7 +29,6 @@ def infoMoodle(page):
     page.get_by_label("Please select token.").select_option("TOTP41107FF1")
     page.get_by_role("button", name="Next").click()
     page.locator("#fudis_otp_input").click()
-    print(otp.getOTP())
     page.locator("#fudis_otp_input").fill(otp.getOTP())
     page.get_by_role("button", name="Validate").click()
 
@@ -52,7 +52,6 @@ def uniMoodle(page):
     page.get_by_label("Please select token.").select_option("TOTP41107FF1")
     page.get_by_role("button", name="Next").click()
     page.locator("#fudis_otp_input").click()
-    print(otp.getOTP())
     page.locator("#fudis_otp_input").fill(otp.getOTP())
     page.get_by_role("button", name="Validate").click()
 
@@ -89,9 +88,11 @@ def run():
 
         browser.close()
     
-    print("\n----------TASKS-----------")
-    for t in allTasks:
-        print(f"{t['uni']} | {t['title']} | {t['deadline']} | {t['modul']}")
+    # print("\n----------TASKS-----------")
+    # for t in allTasks:
+    #     print(f"{t['uni']} | {t['title']} | {t['deadline']} | {t['modul']}")
+
+    notion.addTasks(allTasks)
         
 
 
