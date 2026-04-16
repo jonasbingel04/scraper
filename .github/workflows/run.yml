@@ -23,11 +23,11 @@ jobs:
         
       - name: Run Scraper
         env: 
-          tuOTP: ${{ secrets.tuOTP}}
-          tuUsername: ${{ secrets.tuUsername}}
-          tuPassword: ${{ secrets.tuPassword}}
-          notionScecret: ${{ secrets.notionScecret}}
-          notionID: ${{ secrets.notionID}}
-          notionVersion: ${{ secrets.notionVersion}}
-          modulDbId: ${{ secrets.modulDbId}}
+          tuOTP: ${{ secrets.TUOTP}}
+          tuUsername: ${{ secrets.TUUSERNAME}}
+          tuPassword: ${{ secrets.TUPASSWORD}}
+          notionScecret: ${{ secrets.NOTIONSECRET}}
+          notionID: ${{ secrets.NOTIONID}}
+          notionVersion: ${{ secrets.NOTIONVERSION}}
+          modulDbId: ${{ secrets.MODULDBID}}
         run: python main.py
