@@ -80,7 +80,7 @@ def addTasks(tasks):
         "Content-Type": "application/json"
     }
     
-    dsID = getDataSourceID(headers)
+    # dsID = getDataSourceID(headers)
     oldTasks = getOldTasks(headers)
 
     for t in tasks:
