@@ -30,6 +30,12 @@ def getOldTasks(headers):
         f"https://api.notion.com/v1/data_sources/{data_source_id}/query", headers=headers
     )
 
+    data = response.json()
+    if "results" not in data:
+        print(f"NOTION API FEHLER: {data.get('message', 'Unbekannter Fehler')}")
+        print(f"STATUS CODE: {response.status_code}")
+        print(f"GENUTZTE ID: {NOTION_ID}")
+
     for page in response.json()["results"]:
         props = page["properties"]
 
