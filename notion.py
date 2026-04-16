@@ -92,23 +92,30 @@ def addTasks(tasks):
     for t in tasks:
         if checkExisiting(headers, t):
             continue
+        else:
+            title = t["title"]
+            deadline = t["deadline"]
+            modul = getModulID(t["modul"])
+                
+            payload = {
+                    "parent": {
+                        "type": "data_source_id",
+                        "data_source_id": getDataSourceID(headers)
+                    },
+                    "properties": {
+                        "Task": {"title": [{ "text":{"content": title}}]},
+                        "Deadline": {"date":{"start": deadline}},
+                        "Modul": {"relation": [{"id": modul}]}
+                    },
+                }
 
-        title = t["title"]
-        deadline = t["deadline"]
-        modul = getModulID(t["modul"])
-            
-        payload = {
-                "parent": {
-                    "type": "data_source_id",
-                    "data_source_id": getDataSourceID(headers)
-                },
-                "properties": {
-                    "Task": {"title": [{ "text":{"content": title}}]},
-                    "Deadline": {"date":{"start": deadline}},
-                    "Modul": {"relation": [{"id": modul}]}
-                },
-            }
-
-        response = requests.post(url, json=payload, headers=headers)
+            response = requests.post(url, json=payload, headers=headers)
 
         # print(response.text)
+
+headers = {
+        "Notion-Version": NOTION_VERSION,
+        "Authorization": f"Bearer {NOTION_TOKEN}",
+        "Content-Type": "application/json"
+    }
+print(getDataSourceID(headers))
