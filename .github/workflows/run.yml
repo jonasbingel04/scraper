@@ -1,0 +1,33 @@
+name: Moodle Scraper
+
+on:
+  schedule:
+    - cron: '0 8 * * *' #8Uhr UTC
+  workflow_dispatch:
+
+jobs:
+  builds:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.3'
+      
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+        
+      - name: Run Scraper
+        env: 
+          tuOTP: ${{ secrets.tuOTP}}
+          tuUsername: ${{ secrets.tuUsername}}
+          tuPassword: ${{ secrets.tuPassword}}
+          notionScecret: ${{ secrets.notionScecret}}
+          notionID: ${{ secrets.notionID}}
+          notionVersion: ${{ secrets.notionVersion}}
+          modulDbId: ${{ secrets.modulDbId}}
+        run: python main.py
