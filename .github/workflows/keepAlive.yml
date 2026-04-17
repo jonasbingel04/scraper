@@ -1,0 +1,22 @@
+name: Keep-alive Workflow
+
+on:
+  schedule:
+    - cron: '0 0 1 * *' # Läuft am 1. jedes Monats
+  workflow_dispatch: 
+
+jobs:
+  keep_alive:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update keepalive file
+        run: |
+          date > keepalive.txt
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add keepalive.txt
+          git commit -m "Keep-alive commit"
+          git push
