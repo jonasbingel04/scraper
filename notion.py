@@ -58,13 +58,12 @@ def getOldTasks(headers):
     return oldTasks
 
 
-def checkExisiting(headers, newTask):
-    oldTasks = getOldTasks(headers)
+def checkExisiting(headers, newTask, oldTasks):
     newTitle = newTask["title"]
     newModul = newTask["modul"]
 
     for t in oldTasks:
-        if newTitle == t["title"] and newModul == t["modul"]:
+        if newTitle == t["title"] and getModulID(newModul) == t["modul"]:
             return True
     return False
 
@@ -90,7 +89,7 @@ def addTasks(tasks):
     oldTasks = getOldTasks(headers)
 
     for t in tasks:
-        if checkExisiting(headers, t):
+        if checkExisiting(headers, t, oldTasks):
             continue
         else:
             title = t["title"]
