@@ -5,8 +5,8 @@ def extractTasks(page, label):
     print(f"[{label}] Suche nach Aufgaben")
 
     try:
-        page.wait_for_selector("h6.event-name a", timeout=8000)
-        tasks = page.query_selector_all("h6.event-name a")
+        page.wait_for_selector(".event-name a", timeout=20000)
+        tasks = page.query_selector_all(".event-name a")
 
         results = []
         for t in tasks:
@@ -14,7 +14,7 @@ def extractTasks(page, label):
             link = t.get_attribute("href")
             title = t.inner_text().strip()
             
-            modulMatch = re.search(r"in (.*) ist", aria if aria else "")
+            modulMatch = re.search(rf"{re.escape(title)} in (.+?) ist ", aria or "")
             modul = modulMatch.group(1) if modulMatch else "Kein Modul gefunden"
 
             deadlineMatch = re.search(r"ist (.*) fällig", aria if aria else "")
